@@ -1,0 +1,17 @@
+#!/bin/bash
+fecha=$(date +"%d-%m-%Y")
+mkdir /var/www/html/$1$fecha
+echo -e "<?php \n" > /var/www/html/$1$fecha/inicio.php 
+
+count=1
+while [[ $count -le $2 ]]; do
+#echo $count
+
+echo -e "<?php \n \n \n?>" > /var/www/html/$1$fecha/hf$count.php
+echo -e "require_once(\"hf$count.php\");" >> /var/www/html/$1$fecha/inicio.php
+count=$((count + 1))
+done
+echo -e "echo \"<h1>Listos para empezar</h1>\";\n?>" >> /var/www/html/$1$fecha/inicio.php
+echo "$1$fecha" > direc.txt
+gedit /var/www/html/$1$fecha/inicio.php
+
